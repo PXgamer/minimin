@@ -24,7 +24,7 @@
 
                         {else}
                             {foreach $installed_plugins as $plugin}
-                                <li><a href="{$plugin->link}">{$plugin->name}</a></li>
+                                <li><a href="/{$plugin->link}">{$plugin->name}</a></li>
                             {/foreach}
                         {/if}
                     </ul>
