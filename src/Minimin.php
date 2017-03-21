@@ -16,6 +16,10 @@ class Minimin
 
     public function __construct()
     {
+        if (!is_dir(SRC_PATH . 'data')) {
+            mkdir(SRC_PATH . 'data');
+        }
+
         $this->controller = App::instance();
         $this->request = Request::instance();
         $this->route = Route::instance($this->request);
