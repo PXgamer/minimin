@@ -29,6 +29,20 @@ class Plugins
     }
 
     /**
+     * @param string $plugin_path
+     * @return bool
+     */
+    public static function search($plugin_path)
+    {
+        foreach (self::get() as $item) {
+            if ($plugin_path == $item->link) {
+                return $item->app_namespace;
+            }
+        }
+        return false;
+    }
+
+    /**
      * @param string $vendor
      * @param string $plugin_name
      * @return bool
