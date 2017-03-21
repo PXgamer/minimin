@@ -12,7 +12,7 @@ class Store
 
     public function __construct()
     {
-        $this->S = (new Smarter)->get();
+        $this->S = Smarter::get();
     }
 
     public function index()
