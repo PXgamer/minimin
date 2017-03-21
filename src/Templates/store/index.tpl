@@ -4,22 +4,52 @@
     <hr>
     <div>
         <h3>Installed Plugins</h3>
-        <table class="table">
-            {foreach $installed as $plugin}
-                <a href="{$plugin->link}">{$plugin->name}</a>
-            {/foreach}
-            {if !$installed}
-                <p>No {\pxgamer\Minimin\Minimin::APP_NAME} plugins are installed.</p>
-            {/if}
-        </table>
+        {if !$installed}
+            <p>No {\pxgamer\Minimin\Minimin::APP_NAME} plugins are installed.</p>
+        {else}
+            <table class="table">
+                {foreach $installed as $plugin}
+                    <tr>
+                        <td>
+                            <a href="{$plugin->link}">{$plugin->name}</a>
+                        </td>
+                    </tr>
+                {/foreach}
+            </table>
+        {/if}
         <h3>Available Plugins</h3>
-        <table class="table">
-            {foreach $available as $plugin}
-            {/foreach}
-            {if !$available}
-                <p>No {\pxgamer\Minimin\Minimin::APP_NAME} plugins are available.</p>
-            {/if}
-        </table>
+        {if !$available}
+            <p>No {\pxgamer\Minimin\Minimin::APP_NAME} plugins are available.</p>
+        {else}
+            <table class="table">
+                <tr>
+                    <th>Plugin Title</th>
+                    <th>Description</th>
+                    <th>Downloads</th>
+                    <th>Repo</th>
+                </tr>
+                {foreach $available as $plugin}
+                    <tr>
+                        <td>
+                            <a href="{$plugin->url}">{$plugin->name}</a>
+                        </td>
+                        <td>
+                        <span>
+                            {$plugin->description}
+                        </span>
+                        </td>
+                        <td>
+                        <span>
+                            {$plugin->downloads}
+                        </span>
+                        </td>
+                        <td>
+                            <a href="{$plugin->repository}" target="_blank"><span class="fa fa-fw fa-github"></span></a>
+                        </td>
+                    </tr>
+                {/foreach}
+            </table>
+        {/if}
     </div>
 </div>
 {include file='include/footer.tpl'}
