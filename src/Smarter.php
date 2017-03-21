@@ -4,17 +4,13 @@ namespace pxgamer\Minimin;
 
 class Smarter
 {
-    public $smarty;
+    public static $smarty;
 
-    public function __construct()
+    public static function get()
     {
-        $this->smarty = new \Smarty;
-        $this->smarty->setTemplateDir(SRC_PATH . '/Templates/');
-        $this->smarty->setCompileDir(SRC_PATH . '/Templates_c/');
-    }
-
-    public function get()
-    {
-        return $this->smarty;
+        self::$smarty = new \Smarty;
+        self::$smarty->setTemplateDir(SRC_PATH . '/Templates/');
+        self::$smarty->setCompileDir(SRC_PATH . '/Templates_c/');
+        return self::$smarty;
     }
 }
