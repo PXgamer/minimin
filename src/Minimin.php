@@ -20,7 +20,7 @@ class Minimin
 
         $this->route->any('/', [ROUTES . 'Main', 'index']);
         $this->route->group('/store', function () {
-            $this->any('/', [ROUTES . 'Main', 'store']);
+            $this->any('/', [ROUTES . 'Store', 'index']);
         });
 
         $this->route->end();
