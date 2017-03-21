@@ -21,7 +21,7 @@
                     </a>
                     <ul class="dropdown-menu" role="menu">
                         {if !$installed_plugins}
-
+                            <li><a>No plugins installed.</a></li>
                         {else}
                             {foreach $installed_plugins as $plugin}
                                 <li><a href="/{$plugin->link}">{$plugin->name}</a></li>
