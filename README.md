@@ -36,7 +36,7 @@ class Plugin
          */
         
         $object = (object)[
-            'app_namespace' => '{vendor}\\{plugin}\\', // The namespace of the plugin
+            'app_namespace' => '\\{vendor}\\{plugin}', // The namespace of the plugin
             'name' => 'Cron Tasks', // The name of the plugin, may contain spaces
             'link' => 'cron-tasks', // The link that will be used (e.g. `cron-tasks` will be `/cron-tasks`)
             'description' => 'A cron task manager for servers.' // The description of the plugin
@@ -51,7 +51,7 @@ class Plugin
 ```json
 [
   {
-    "app_namespace": "pxgamer\\CronTasks\\",
+    "app_namespace": "\\pxgamer\\CronTasks",
     "name": "Cron Tasks",
     "link": "cron-tasks",
     "description": "A cron task manager for servers."
