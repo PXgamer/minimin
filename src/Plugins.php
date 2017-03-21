@@ -30,12 +30,17 @@ class Plugins
 
     /**
      * @param string $plugin_path
+     * @param string|null $type
      * @return bool
      */
-    public static function search($plugin_path)
+    public static function search($plugin_path, $type = null)
     {
+        if (is_null($type)) {
+            $type = 'link';
+        }
+
         foreach (self::get() as $item) {
-            if ($plugin_path == $item->link) {
+            if ($plugin_path == $item->{$type}) {
                 return $item->app_namespace;
             }
         }
@@ -53,15 +58,21 @@ class Plugins
             return false;
         }
 
-        exec('cd "' . ROOT_PATH . '" && composer require ' . $vendor . '/' . $plugin_name);
+        if (self::search($vendor . '/' . $plugin_name, 'package_name')) {
+            exec('cd "' . ROOT_PATH . '" && composer require ' . $vendor . '/' . $plugin_name);
+        }
 
         $plugins = json_decode(file_get_contents(self::$json_path));
         $pluginsInfo = Plugins::getPluginInfo($vendor, $plugin_name);
         if (!empty($pluginsInfo)) {
+            $pluginsInfo['package_name'] = $vendor . '/' . $plugin_name;
+
             $plugins[] = $pluginsInfo;
             file_put_contents(self::$json_path, json_encode($plugins));
             return true;
         } else {
+            exec('cd "' . ROOT_PATH . '" && composer remove ' . $vendor . '/' . $plugin_name);
+
             return false;
         }
     }
