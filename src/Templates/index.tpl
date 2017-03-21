@@ -8,7 +8,7 @@
             <li><a href="/admin">Minimin Options</a></li>
             <li><a href="/store">Minimin Store</a></li>
             {foreach $plugins as $plugin}
-                <li><a href="/{$plugin->link}">{$plugin->name}</a> v{$plugin->version}</li>
+                <li><a href="/{$plugin->link}">{$plugin->name}</a></li>
             {/foreach}
         </ul>
     </div>
