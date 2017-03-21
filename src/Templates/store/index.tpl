@@ -13,6 +13,9 @@
                         <td>
                             <a href="{$plugin->link}">{$plugin->name}</a>
                         </td>
+                        <td>
+                            <span>{$plugin->description}</span>
+                        </td>
                     </tr>
                 {/foreach}
             </table>
