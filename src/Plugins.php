@@ -50,30 +50,46 @@ class Plugins
     /**
      * @param string $vendor
      * @param string $plugin_name
-     * @return bool
+     * @return string
      */
     public static function install($vendor, $plugin_name)
     {
         if ($plugin_name == '' || !is_string($plugin_name)) {
-            return false;
+            return [
+                'status' => false,
+                'response' => 'Invalid plugin name.'
+            ];
         }
 
         if (self::search($vendor . '/' . $plugin_name, 'package_name')) {
-            exec('cd "' . ROOT_PATH . '" && composer require ' . $vendor . '/' . $plugin_name);
+            return [
+                'status' => false,
+                'response' => 'Plugin <code>' . $vendor . '/' . $plugin_name . '</code> is already installed.'
+            ];
         }
+
+        chdir(ROOT_PATH);
+        shell_exec('composer require ' . $vendor . '/' . $plugin_name);
+        chdir(BASE_PATH);
 
         $plugins = json_decode(file_get_contents(self::$json_path));
         $pluginsInfo = Plugins::getPluginInfo($vendor, $plugin_name);
         if (!empty($pluginsInfo)) {
-            $pluginsInfo['package_name'] = $vendor . '/' . $plugin_name;
+            $pluginsInfo->package_name = $vendor . '/' . $plugin_name;
 
             $plugins[] = $pluginsInfo;
             file_put_contents(self::$json_path, json_encode($plugins));
-            return true;
+            return [
+                'status' => true,
+                'response' => 'Successfully installed the plugin <code>' . $vendor . '/' . $plugin_name . '</code>.'
+            ];
         } else {
-            exec('cd "' . ROOT_PATH . '" && composer remove ' . $vendor . '/' . $plugin_name);
+            //shell_exec('cd "' . ROOT_PATH . '" && composer remove ' . $vendor . '/' . $plugin_name);
 
-            return false;
+            return [
+                'status' => false,
+                'response' => 'Plugin <code>' . $vendor . '/' . $plugin_name . '</code> failed to install.'
+            ];
         }
     }
 
@@ -101,8 +117,8 @@ class Plugins
         if (isset($response['packages'][$vendor . '/' . $plugin_name]['dev-master']['autoload']['psr-4'])) {
             $first_key = key($response['packages'][$vendor . '/' . $plugin_name]['dev-master']['autoload']['psr-4']);
 
-            if (class_exists($first_key . 'Plugin')) {
-                return ($first_key . 'Plugin')::info();
+            if (class_exists('\\' . $first_key . 'Plugin')) {
+                return ('\\' . $first_key . 'Plugin')::info();
             }
         }
 

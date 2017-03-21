@@ -51,7 +51,7 @@ class Store
             [
                 'vendor' => $vendor,
                 'package' => $package,
-                'status' => $install_status
+                'status' => (object)$install_status
             ]
         );
     }
