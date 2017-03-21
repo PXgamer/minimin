@@ -19,7 +19,9 @@ class Minimin
         $this->route = Route::instance($this->request);
 
         $this->route->any('/', [ROUTES . 'Main', 'index']);
-        $this->route->any('/store', [ROUTES . 'Main', 'store']);
+        $this->route->group('/store', function () {
+            $this->any('/', [ROUTES . 'Main', 'store']);
+        });
 
         $this->route->end();
     }
