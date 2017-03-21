@@ -30,11 +30,12 @@
                     <th>Description</th>
                     <th>Downloads</th>
                     <th>Repo</th>
+                    <th>Install</th>
                 </tr>
                 {foreach $available as $plugin}
                     <tr>
                         <td>
-                            <a href="{$plugin->url}">{$plugin->name}</a>
+                            <a href="{$plugin->url}" target="_blank">{$plugin->name}</a>
                         </td>
                         <td>
                         <span>
@@ -48,6 +49,9 @@
                         </td>
                         <td>
                             <a href="{$plugin->repository}" target="_blank"><span class="fa fa-fw fa-github"></span></a>
+                        </td>
+                        <td>
+                            <a href="/store/install/{$plugin->name}"><span class="fa fa-fw fa-download"></span></a>
                         </td>
                     </tr>
                 {/foreach}
