@@ -33,4 +33,15 @@ class Main
             ]
         );
     }
+
+    public function error($error_code = 200, $error_text = 'An unknown error occurred')
+    {
+        $this->S->display(
+            'error.tpl',
+            [
+                'error_code' => $error_code,
+                'error_text' => $error_text
+            ]
+        );
+    }
 }
