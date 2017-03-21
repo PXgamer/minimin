@@ -2,7 +2,7 @@
 
 namespace pxgamer\Minimin\Routes;
 
-class Main
+class Store
 {
     public function index()
     {
