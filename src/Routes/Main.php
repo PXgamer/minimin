@@ -8,4 +8,9 @@ class Main
     {
 
     }
+
+    public function store()
+    {
+
+    }
 }
