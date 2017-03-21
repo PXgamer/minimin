@@ -42,6 +42,20 @@ class Store
 
     }
 
+    public function install($vendor, $package)
+    {
+        $install_status = Plugins::install($vendor, $package);
+
+        $this->S->display(
+            'store/install.tpl',
+            [
+                'vendor' => $vendor,
+                'package' => $package,
+                'status' => $install_status
+            ]
+        );
+    }
+
     /**
      * @param null|string $search_query
      * @return mixed
