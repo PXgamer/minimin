@@ -10,7 +10,8 @@
     }
   ],
   "require": {
-    "nezamy/route": "^1.0"
+    "nezamy/route": "^1.0",
+    "smarty/smarty": "3.1.x-dev"
   },
   "autoload": {
     "psr-4": {
