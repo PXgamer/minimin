@@ -2,6 +2,7 @@
 
 namespace pxgamer\Minimin\Routes;
 
+use pxgamer\Minimin\Plugins;
 use pxgamer\Minimin\Smarter;
 
 class Main
@@ -15,6 +16,11 @@ class Main
 
     public function index()
     {
-        $this->S->display('index.tpl');
+        $this->S->display(
+            'index.tpl',
+            [
+                'plugins' => Plugins::get()
+            ]
+        );
     }
 }
