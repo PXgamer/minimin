@@ -1,0 +1,13 @@
+{
+    "name": "pxgamer/minimin",
+    "description": "A modular php interface for server management.",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "PXgamer",
+            "email": "owzie123@gmail.com"
+        }
+    ],
+    "require": {}
+}
