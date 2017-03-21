@@ -8,6 +8,8 @@ use System\Route;
 
 class Minimin
 {
+    const APP_NAME = 'Minimin';
+
     public $controller;
     public $request;
     public $route;
