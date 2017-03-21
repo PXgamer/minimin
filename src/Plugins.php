@@ -53,11 +53,7 @@ class Plugins
             return false;
         }
 
-        $response = exec('cd "' . ROOT_PATH . '" && composer require ' . $vendor . '/' . $plugin_name);
-
-        if (!$response) {
-            return false;
-        }
+        exec('cd "' . ROOT_PATH . '" && composer require ' . $vendor . '/' . $plugin_name);
 
         $plugins = json_decode(file_get_contents(self::$json_path));
         $pluginsInfo = Plugins::getPluginInfo($vendor, $plugin_name);
@@ -77,10 +73,28 @@ class Plugins
      */
     private static function getPluginInfo($vendor = '', $plugin_name = '')
     {
-        if (class_exists($vendor . '\\' . $plugin_name . '\\Plugin')) {
-            return ($vendor . '\\' . $plugin_name . '\\Plugin')::info();
-        } else {
-            return [];
+        $cu = curl_init();
+        curl_setopt_array(
+            $cu,
+            [
+                CURLOPT_URL => "https://packagist.org/p/$vendor/$plugin_name.json",
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_SSL_VERIFYHOST => false,
+                CURLOPT_SSL_VERIFYPEER => false
+            ]
+        );
+
+        $response = json_decode(curl_exec($cu), true);
+
+        reset($response['packages'][$vendor . '/' . $plugin_name]['dev-master']['autoload']['psr-4']);
+        if (isset($response['packages'][$vendor . '/' . $plugin_name]['dev-master']['autoload']['psr-4'])) {
+            $first_key = key($response['packages'][$vendor . '/' . $plugin_name]['dev-master']['autoload']['psr-4']);
+
+            if (class_exists($first_key . 'Plugin')) {
+                return ($first_key . 'Plugin')::info();
+            }
         }
+
+        return [];
     }
 }
