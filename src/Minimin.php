@@ -48,6 +48,9 @@ class Minimin
             $this->any('/', [ROUTES . 'Store', 'index']);
             $this->any('/search', [ROUTES . 'Store', 'search']);
         });
+        $this->route->group('/options', function () {
+            $this->any('/', [ROUTES . 'Options', 'index']);
+        });
 
         $this->route->end();
     }
