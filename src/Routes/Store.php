@@ -5,12 +5,22 @@ namespace pxgamer\Minimin\Routes;
 use pxgamer\Minimin\Plugins;
 use pxgamer\Minimin\Smarter;
 
+/**
+ * Class Store
+ * @package pxgamer\Minimin\Routes
+ */
 class Store
 {
     const STORE_PACKAGE_URL = 'https://packagist.org/search.json?tags=minimin-package';
 
+    /**
+     * @var \Smarty
+     */
     public $S;
 
+    /**
+     * Store constructor.
+     */
     public function __construct()
     {
         $this->S = Smarter::get();
@@ -32,6 +42,10 @@ class Store
 
     }
 
+    /**
+     * @param null|string $search_query
+     * @return mixed
+     */
     private function getPackages($search_query = null)
     {
         $url = self::STORE_PACKAGE_URL . ($search_query ? '&q=' . urlencode($search_query) : '');

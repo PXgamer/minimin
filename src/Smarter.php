@@ -2,10 +2,20 @@
 
 namespace pxgamer\Minimin;
 
+/**
+ * Class Smarter
+ * @package pxgamer\Minimin
+ */
 class Smarter
 {
+    /**
+     * @var \Smarty
+     */
     public static $smarty;
 
+    /**
+     * @return \Smarty
+     */
     public static function get()
     {
         if (!isset(self::$smarty)) {

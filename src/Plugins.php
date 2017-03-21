@@ -2,10 +2,20 @@
 
 namespace pxgamer\Minimin;
 
+/**
+ * Class Plugins
+ * @package pxgamer\Minimin
+ */
 class Plugins
 {
+    /**
+     * @var string
+     */
     private static $json_path = SRC_PATH . 'data' . DS . 'plugins.json';
 
+    /**
+     * @return array|mixed
+     */
     public static function get()
     {
         if (file_exists(self::$json_path)) {
@@ -18,6 +28,11 @@ class Plugins
         return $plugins;
     }
 
+    /**
+     * @param string $vendor
+     * @param string $plugin_name
+     * @return bool
+     */
     public static function install($vendor, $plugin_name)
     {
         if ($plugin_name == '' || !is_string($plugin_name)) {
@@ -41,6 +56,11 @@ class Plugins
         }
     }
 
+    /**
+     * @param string $vendor
+     * @param string $plugin_name
+     * @return array
+     */
     private static function getPluginInfo($vendor = '', $plugin_name = '')
     {
         if (class_exists($vendor . '\\' . $plugin_name . '\\Plugin')) {
