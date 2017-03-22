@@ -69,28 +69,30 @@ class Plugins
         }
 
         chdir(ROOT_PATH);
-        shell_exec('composer require ' . $vendor . '/' . $plugin_name);
+        exec('composer require ' . $vendor . '/' . $plugin_name . ' 2>&1', $output);
         chdir(BASE_PATH);
 
-        $plugins = json_decode(file_get_contents(self::$json_path));
-        $pluginsInfo = Plugins::getPluginInfo($vendor, $plugin_name);
-        if (!empty($pluginsInfo)) {
-            $pluginsInfo->package_name = $vendor . '/' . $plugin_name;
+        if (preg_match("/$vendor\/$plugin_name/i", $output[0])) {
+            $plugins = json_decode(file_get_contents(self::$json_path));
+            $pluginsInfo = Plugins::getPluginInfo($vendor, $plugin_name);
+            if (!empty($pluginsInfo)) {
+                $pluginsInfo->package_name = $vendor . '/' . $plugin_name;
 
-            $plugins[] = $pluginsInfo;
-            file_put_contents(self::$json_path, json_encode($plugins));
-            return [
-                'status' => true,
-                'response' => 'Successfully installed the plugin <code>' . $vendor . '/' . $plugin_name . '</code>.'
-            ];
-        } else {
-            //shell_exec('cd "' . ROOT_PATH . '" && composer remove ' . $vendor . '/' . $plugin_name);
-
-            return [
-                'status' => false,
-                'response' => 'Plugin <code>' . $vendor . '/' . $plugin_name . '</code> failed to install.'
-            ];
+                $plugins[] = $pluginsInfo;
+                file_put_contents(self::$json_path, json_encode($plugins));
+                return [
+                    'status' => true,
+                    'response' => 'Successfully installed the plugin <code>' . $vendor . '/' . $plugin_name . '</code>.'
+                ];
+            }
         }
+
+        //shell_exec('cd "' . ROOT_PATH . '" && composer remove ' . $vendor . '/' . $plugin_name);
+
+        return [
+            'status' => false,
+            'response' => 'Plugin <code>' . $vendor . '/' . $plugin_name . '</code> failed to install.'
+        ];
     }
 
     /**
@@ -98,8 +100,11 @@ class Plugins
      * @param string $plugin_name
      * @return array
      */
-    private static function getPluginInfo($vendor = '', $plugin_name = '')
-    {
+    private
+    static function getPluginInfo(
+        $vendor = '',
+        $plugin_name = ''
+    ) {
         $cu = curl_init();
         curl_setopt_array(
             $cu,
@@ -116,6 +121,9 @@ class Plugins
         reset($response['packages'][$vendor . '/' . $plugin_name]['dev-master']['autoload']['psr-4']);
         if (isset($response['packages'][$vendor . '/' . $plugin_name]['dev-master']['autoload']['psr-4'])) {
             $first_key = key($response['packages'][$vendor . '/' . $plugin_name]['dev-master']['autoload']['psr-4']);
+
+            $loader = require ROOT_PATH . '/vendor/autoload.php';
+            $loader->addPsr4($first_key, ROOT_PATH . '/vendor' . DS . $vendor . DS . $plugin_name . DS . 'src');
 
             if (class_exists('\\' . $first_key . 'Plugin')) {
                 return ('\\' . $first_key . 'Plugin')::info();
