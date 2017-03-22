@@ -23,6 +23,7 @@ class Smarter
         }
         self::$smarty->setTemplateDir(SRC_PATH . '/Templates/');
         self::$smarty->setCompileDir(SRC_PATH . '/Templates_c/');
+        self::$smarty->setPluginsDir(SRC_PATH . '/SmartyPlugins/');
         return self::$smarty;
     }
 }
