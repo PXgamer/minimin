@@ -10,9 +10,13 @@
         </ul>
         <h3>{\pxgamer\Minimin\Minimin::APP_NAME} Plugins</h3>
         <ul class="list-unstyled">
-            {foreach $plugins as $plugin}
-                <li><a href="/{$plugin->link}">{$plugin->name}</a></li>
-            {/foreach}
+            {if !$plugins}
+                <p>No {\pxgamer\Minimin\Minimin::APP_NAME} plugins are installed.</p>
+            {else}
+                {foreach $plugins as $plugin}
+                    <li><a href="/{$plugin->link}">{$plugin->name}</a></li>
+                {/foreach}
+            {/if}
         </ul>
     </div>
 </div>
