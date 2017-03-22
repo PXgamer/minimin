@@ -55,10 +55,12 @@ class Minimin
         $this->route->group('/options', function () {
             $this->any('/', [ROUTES . 'Options', 'index']);
         });
-        $this->route->any(['/{plugin}', '/{plugin}/*'], function ($plugin, $path = '') {
+        $this->route->any(['/{plugin}', '/(.*)'], function ($plugin) {
             $namespace = Plugins::search($plugin);
-            if ($namespace && class_exists($namespace)) {
-                new $namespace($path);
+            $AppClass = $namespace . '\\App';
+
+            if (class_exists($AppClass)) {
+                new $AppClass($this);
             } else {
                 $Main = new Routes\Main;
                 $Main->error(404, 'Oops, page not found.');
