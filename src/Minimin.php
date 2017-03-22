@@ -60,7 +60,13 @@ class Minimin
             $AppClass = $namespace . '\\App';
 
             if (class_exists($AppClass)) {
-                new $AppClass($this);
+                Smarter::get()->display(
+                    'package.tpl',
+                    [
+                        'AppClass' => $AppClass,
+                        'Route' => $this
+                    ]
+                );
             } else {
                 $Main = new Routes\Main;
                 $Main->error(404, 'Oops, page not found.');
