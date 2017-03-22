@@ -123,10 +123,12 @@ class Plugins
             $first_key = key($response['packages'][$vendor . '/' . $plugin_name]['dev-master']['autoload']['psr-4']);
 
             $loader = require ROOT_PATH . '/vendor/autoload.php';
-            $loader->addPsr4($first_key, ROOT_PATH . '/vendor' . DS . $vendor . DS . $plugin_name . DS . 'src');
+            if ($loader) {
+                $loader->addPsr4($first_key, ROOT_PATH . '/vendor' . DS . $vendor . DS . $plugin_name . DS . 'src');
 
-            if (class_exists('\\' . $first_key . 'Plugin')) {
-                return ('\\' . $first_key . 'Plugin')::info();
+                if (class_exists('\\' . $first_key . 'Plugin')) {
+                    return ('\\' . $first_key . 'Plugin')::info();
+                }
             }
         }
 
