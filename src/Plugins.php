@@ -31,7 +31,7 @@ class Plugins
     /**
      * @param string $plugin_path
      * @param string|null $type
-     * @return bool
+     * @return bool|string
      */
     public static function search($plugin_path, $type = null)
     {
@@ -50,7 +50,7 @@ class Plugins
     /**
      * @param string $vendor
      * @param string $plugin_name
-     * @return string
+     * @return array
      */
     public static function install($vendor, $plugin_name)
     {
@@ -92,6 +92,53 @@ class Plugins
         return [
             'status' => false,
             'response' => 'Plugin <code>' . $vendor . '/' . $plugin_name . '</code> failed to install.'
+        ];
+    }
+
+    /**
+     * @param string $vendor
+     * @param string $plugin_name
+     * @return array
+     */
+    public static function uninstall($vendor, $plugin_name)
+    {
+        if ($plugin_name == '' || !is_string($plugin_name)) {
+            return [
+                'status' => false,
+                'response' => 'Invalid plugin name.'
+            ];
+        }
+
+        if (!self::search($vendor . '/' . $plugin_name, 'package_name')) {
+            return [
+                'status' => false,
+                'response' => 'Plugin <code>' . $vendor . '/' . $plugin_name . '</code> is not installed.'
+            ];
+        }
+
+        chdir(ROOT_PATH);
+        exec('composer remove ' . $vendor . '/' . $plugin_name . ' 2>&1', $output);
+        chdir(BASE_PATH);
+
+        if (preg_match("/composer/i", $output[0])) {
+            $plugins = json_decode(file_get_contents(self::$json_path));
+
+            foreach ($plugins as $key => $item) {
+                if (($vendor . '/' . $plugin_name) == $item->package_name) {
+                    unset($plugins[$key]);
+                }
+            }
+
+            file_put_contents(self::$json_path, json_encode($plugins));
+            return [
+                'status' => true,
+                'response' => 'Successfully uninstalled the plugin <code>' . $vendor . '/' . $plugin_name . '</code>.'
+            ];
+        }
+
+        return [
+            'status' => false,
+            'response' => 'Plugin <code>' . $vendor . '/' . $plugin_name . '</code> failed to uninstall.'
         ];
     }
 
