@@ -13,4 +13,15 @@ function smarty_modifier_file_size($int, $length = 4)
             return trim_num($int / 1073741824, $length) . ' <span>GB</span>';
     }
 }
-	
+
+function trim_num($num, $len)
+{
+    if (strlen($num) <= $len) {
+        return $num;
+    }
+    while (strlen($num) > $len) {
+        $num = substr($num, 0, -1);
+    }
+    $num = trim($num, '.');
+    return $num;
+}
