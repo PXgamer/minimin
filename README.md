@@ -4,17 +4,40 @@ A modular php interface for server management.
 
 ## Basic Plugin format
 
+Classes accessible to plugins:
+- Smarter (this will need to have a custom template directory added using `addTemplateDir()`)
+- System\* (nezamy/route classes)
+- Any classes that they import/require
+
+Packages should follow the folder structure below:
+```text
+/
+    src/
+        /Templates
+            /{PluginName}
+        App.php
+        Plugin.php
+    composer.json
+```
+
+For reference, view the [minimin-package-example](https://github.com/PXgamer/minimin-package-example) plugin on Github.
+
 __App.php__
 ```php
 <?php
 
 namespace {vendor}\{plugin};
 
+use pxgamer\Minimin\Smarter;
+
 class App
 {
     // When initialised by the Minimin class, it will pass the $route to the plugin App constructor
-    public function __construct($route) {
+    public function __construct($route)
+    {
         // ... Run plugin commands
+        $Smarter = Smarter::get();
+        $Smarter->addTemplateDir(__DIR__ . '/Templates/');
     }
 }
 ```
@@ -48,6 +71,7 @@ class Plugin
 ```
 
 ## Example `data/plugins.json` format
+
 ```json
 [
   {
