@@ -143,6 +143,21 @@ class Plugins
     }
 
     /**
+     * @return array
+     */
+    public static function update()
+    {
+        chdir(ROOT_PATH);
+        exec('composer update 2>&1', $output);
+        chdir(BASE_PATH);
+
+        return [
+            'status' => true,
+            'response' => 'Successfully updated plugins.'
+        ];
+    }
+
+    /**
      * @param string $vendor
      * @param string $plugin_name
      * @return array

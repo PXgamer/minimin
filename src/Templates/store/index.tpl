@@ -2,6 +2,11 @@
 <div class="container">
     <h1>{\pxgamer\Minimin\Minimin::APP_NAME} Store</h1>
     <hr>
+    <div class="text-right">
+        <a href="/store/update" class="btn btn-default btn-xs">
+            <span class="fa fa-fw fa-arrow-circle-up"></span> Update plugins
+        </a>
+    </div>
     <div>
         <h3>Installed Plugins</h3>
         {if !$installed}

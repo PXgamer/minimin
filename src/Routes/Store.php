@@ -70,6 +70,18 @@ class Store
         );
     }
 
+    public function update()
+    {
+        $install_status = Plugins::update();
+
+        $this->S->display(
+            'store/install.tpl',
+            [
+                'status' => (object)$install_status
+            ]
+        );
+    }
+
     /**
      * @param null|string $search_query
      * @return mixed
