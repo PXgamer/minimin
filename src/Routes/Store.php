@@ -56,6 +56,20 @@ class Store
         );
     }
 
+    public function uninstall($vendor, $package)
+    {
+        $install_status = Plugins::uninstall($vendor, $package);
+
+        $this->S->display(
+            'store/install.tpl',
+            [
+                'vendor' => $vendor,
+                'package' => $package,
+                'status' => (object)$install_status
+            ]
+        );
+    }
+
     /**
      * @param null|string $search_query
      * @return mixed

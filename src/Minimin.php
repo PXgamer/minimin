@@ -51,6 +51,9 @@ class Minimin
             $this->any('/install/{vendor}/{package}', function ($vendor, $package) {
                 (new Store)->install($vendor, $package);
             });
+            $this->any('/uninstall/{vendor}/{package}', function ($vendor, $package) {
+                (new Store)->uninstall($vendor, $package);
+            });
         });
         $this->route->group('/options', function () {
             $this->any('/', [ROUTES . 'Options', 'index']);
