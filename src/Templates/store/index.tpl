@@ -16,6 +16,11 @@
                         <td>
                             <span>{$plugin->description}</span>
                         </td>
+                        <td>
+                            <a href="/store/uninstall/{$plugin->package_name}">
+                                <span class="fa fa-fw fa-trash"></span>
+                            </a>
+                        </td>
                     </tr>
                 {/foreach}
             </table>
