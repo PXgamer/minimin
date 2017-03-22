@@ -3,6 +3,7 @@
   "description": "A modular php interface for server management.",
   "type": "project",
   "license": "MIT",
+  "minimum-stability": "dev",
   "authors": [
     {
       "name": "PXgamer",
