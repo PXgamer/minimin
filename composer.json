@@ -1,0 +1,22 @@
+{
+  "name": "pxgamer/minimin",
+  "description": "A modular php interface for server management.",
+  "type": "project",
+  "license": "MIT",
+  "minimum-stability": "dev",
+  "authors": [
+    {
+      "name": "PXgamer",
+      "email": "owzie123@gmail.com"
+    }
+  ],
+  "require": {
+    "nezamy/route": "^1.0",
+    "smarty/smarty": "3.1.x-dev"
+  },
+  "autoload": {
+    "psr-4": {
+      "pxgamer\\Minimin\\": "src/"
+    }
+  }
+}
