@@ -1,4 +1,9 @@
 <?php
+/**
+ * @param int $int
+ * @param int $length
+ * @return string
+ */
 function smarty_modifier_file_size($int, $length = 4)
 {
     $int = (int)$int;
@@ -14,6 +19,11 @@ function smarty_modifier_file_size($int, $length = 4)
     }
 }
 
+/**
+ * @param int $num
+ * @param int $len
+ * @return string
+ */
 function trim_num($num, $len)
 {
     if (strlen($num) <= $len) {

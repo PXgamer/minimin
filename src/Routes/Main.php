@@ -34,6 +34,10 @@ class Main
         );
     }
 
+    /**
+     * @param int $error_code
+     * @param string $error_text
+     */
     public function error($error_code = 200, $error_text = 'An unknown error occurred')
     {
         $this->S->display(
