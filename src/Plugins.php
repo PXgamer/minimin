@@ -173,8 +173,6 @@ class Plugins
             [
                 CURLOPT_URL => "https://packagist.org/p/$vendor/$plugin_name.json",
                 CURLOPT_RETURNTRANSFER => true,
-                CURLOPT_SSL_VERIFYHOST => false,
-                CURLOPT_SSL_VERIFYPEER => false
             ]
         );
 

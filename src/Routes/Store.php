@@ -42,6 +42,10 @@ class Store
 
     }
 
+    /**
+     * @param $vendor
+     * @param $package
+     */
     public function install($vendor, $package)
     {
         $install_status = Plugins::install($vendor, $package);
@@ -56,6 +60,10 @@ class Store
         );
     }
 
+    /**
+     * @param $vendor
+     * @param $package
+     */
     public function uninstall($vendor, $package)
     {
         $install_status = Plugins::uninstall($vendor, $package);

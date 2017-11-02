@@ -1,4 +1,8 @@
 <?php
+/**
+ * @param array $params
+ * @param $smarty
+ */
 function smarty_function_class_init(array $params, &$smarty)
 {
     $class = $params['class'];
