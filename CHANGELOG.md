@@ -4,6 +4,11 @@ All notable changes to `minimin` will be documented in this file.
 
 Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+## v1.0.4 - 2017-12-07
+
+### Fixed
+- Corrected the install instructions in the README
+
 ## v1.0.3 - 2017-12-07
 
 ### Added

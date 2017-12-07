@@ -23,7 +23,7 @@ vendor/
 Via Composer
 
 ``` bash
-$ composer require pxgamer/minimin
+$ composer create-project pxgamer/minimin
 ```
 
 ## Usage
