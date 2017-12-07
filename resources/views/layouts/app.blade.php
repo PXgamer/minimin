@@ -29,6 +29,7 @@
                 <div class="navbar-start"></div>
 
                 <div class="navbar-end">
+                    @include('partials.navbar-end')
                 </div>
             </div>
         </div>
