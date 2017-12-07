@@ -1,22 +1,30 @@
 {
-  "name": "pxgamer/minimin",
-  "description": "A modular php interface for server management.",
-  "type": "project",
-  "license": "MIT",
-  "minimum-stability": "dev",
-  "authors": [
-    {
-      "name": "PXgamer",
-      "email": "owzie123@gmail.com"
+    "name": "pxgamer/minimin",
+    "type": "project",
+    "description": "A modular php interface for server management.",
+    "license": "MIT",
+    "require": {
+        "php": "^7.1",
+        "nezamy/route": "^1.0",
+        "smarty/smarty": "^3.1"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^6.4",
+        "squizlabs/php_codesniffer": "^3.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "pxgamer\\Minimin\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "pxgamer\\Minimin\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "phpunit",
+        "check-style": "phpcs -p --standard=PSR2 --runtime-set ignore_errors_on_exit 1 --runtime-set ignore_warnings_on_exit 1 src tests",
+        "fix-style": "phpcbf -p --standard=PSR2 --runtime-set ignore_errors_on_exit 1 --runtime-set ignore_warnings_on_exit 1 src tests"
     }
-  ],
-  "require": {
-    "nezamy/route": "^1.0",
-    "smarty/smarty": "3.1.x-dev"
-  },
-  "autoload": {
-    "psr-4": {
-      "pxgamer\\Minimin\\": "src/"
-    }
-  }
 }
