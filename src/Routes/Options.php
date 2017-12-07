@@ -6,8 +6,7 @@ use pxgamer\Minimin\Plugins;
 use pxgamer\Minimin\Smarter;
 
 /**
- * Class Options
- * @package pxgamer\Minimin\Routes
+ * Class Options.
  */
 class Options
 {
@@ -29,7 +28,7 @@ class Options
         $this->S->display(
             'options/index.tpl',
             [
-                'plugins' => Plugins::get()
+                'plugins' => Plugins::get(),
             ]
         );
     }

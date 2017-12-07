@@ -3,8 +3,7 @@
 namespace pxgamer\Minimin;
 
 /**
- * Class Smarter
- * @package pxgamer\Minimin
+ * Class Smarter.
  */
 class Smarter
 {
@@ -21,9 +20,9 @@ class Smarter
         if (!isset(self::$smarty)) {
             self::$smarty = new \Smarty;
         }
-        self::$smarty->setTemplateDir(SRC_PATH . '/Templates/');
-        self::$smarty->setCompileDir(SRC_PATH . '/Templates_c/');
-        self::$smarty->setPluginsDir(SRC_PATH . '/SmartyPlugins/');
+        self::$smarty->setTemplateDir(SRC_PATH.'/Templates/');
+        self::$smarty->setCompileDir(SRC_PATH.'/Templates_c/');
+        self::$smarty->setPluginsDir(SRC_PATH.'/SmartyPlugins/');
         return self::$smarty;
     }
 }

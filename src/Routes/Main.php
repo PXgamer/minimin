@@ -6,8 +6,7 @@ use pxgamer\Minimin\Plugins;
 use pxgamer\Minimin\Smarter;
 
 /**
- * Class Main
- * @package pxgamer\Minimin\Routes
+ * Class Main.
  */
 class Main
 {
@@ -29,13 +28,13 @@ class Main
         $this->S->display(
             'index.tpl',
             [
-                'plugins' => Plugins::get()
+                'plugins' => Plugins::get(),
             ]
         );
     }
 
     /**
-     * @param int $error_code
+     * @param int    $error_code
      * @param string $error_text
      */
     public function error($error_code = 200, $error_text = 'An unknown error occurred')
@@ -44,7 +43,7 @@ class Main
             'error.tpl',
             [
                 'error_code' => $error_code,
-                'error_text' => $error_text
+                'error_text' => $error_text,
             ]
         );
     }
