@@ -2,7 +2,7 @@
 
 use pxgamer\Minimin\Minimin;
 
-include __DIR__.'/vendor/autoload.php';
+include __DIR__.'/../vendor/autoload.php';
 
 define('DS', DIRECTORY_SEPARATOR, true);
 define('ROOT_PATH', realpath('..'), true);
