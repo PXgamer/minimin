@@ -4,14 +4,13 @@ namespace pxgamer\Minimin;
 
 /**
  * Class Plugins
- * @package pxgamer\Minimin
  */
 class Plugins
 {
     /**
      * @var string
      */
-    private static $json_path = SRC_PATH . 'data' . DS . 'plugins.json';
+    private static $json_path = SRC_PATH.'data'.DS.'plugins.json';
 
     /**
      * @return array|mixed
@@ -29,7 +28,7 @@ class Plugins
     }
 
     /**
-     * @param string $plugin_path
+     * @param string      $plugin_path
      * @param string|null $type
      * @return bool|string
      */
@@ -56,33 +55,33 @@ class Plugins
     {
         if ($plugin_name == '' || !is_string($plugin_name)) {
             return [
-                'status' => false,
-                'response' => 'Invalid plugin name.'
+                'status'   => false,
+                'response' => 'Invalid plugin name.',
             ];
         }
 
-        if (self::search($vendor . '/' . $plugin_name, 'package_name')) {
+        if (self::search($vendor.'/'.$plugin_name, 'package_name')) {
             return [
-                'status' => false,
-                'response' => 'Plugin <code>' . $vendor . '/' . $plugin_name . '</code> is already installed.'
+                'status'   => false,
+                'response' => 'Plugin <code>'.$vendor.'/'.$plugin_name.'</code> is already installed.',
             ];
         }
 
         chdir(ROOT_PATH);
-        exec('composer require ' . $vendor . '/' . $plugin_name . ' 2>&1', $output);
+        exec('composer require '.$vendor.'/'.$plugin_name.' 2>&1', $output);
         chdir(BASE_PATH);
 
         if (preg_match("/$vendor\/$plugin_name/i", $output[0])) {
             $plugins = json_decode(file_get_contents(self::$json_path));
             $pluginsInfo = Plugins::getPluginInfo($vendor, $plugin_name);
             if (!empty($pluginsInfo)) {
-                $pluginsInfo->package_name = $vendor . '/' . $plugin_name;
+                $pluginsInfo->package_name = $vendor.'/'.$plugin_name;
 
                 $plugins[] = $pluginsInfo;
                 file_put_contents(self::$json_path, json_encode($plugins));
                 return [
-                    'status' => true,
-                    'response' => 'Successfully installed the plugin <code>' . $vendor . '/' . $plugin_name . '</code>.'
+                    'status'   => true,
+                    'response' => 'Successfully installed the plugin <code>'.$vendor.'/'.$plugin_name.'</code>.',
                 ];
             }
         }
@@ -90,8 +89,8 @@ class Plugins
         //shell_exec('cd "' . ROOT_PATH . '" && composer remove ' . $vendor . '/' . $plugin_name);
 
         return [
-            'status' => false,
-            'response' => 'Plugin <code>' . $vendor . '/' . $plugin_name . '</code> failed to install.'
+            'status'   => false,
+            'response' => 'Plugin <code>'.$vendor.'/'.$plugin_name.'</code> failed to install.',
         ];
     }
 
@@ -104,41 +103,41 @@ class Plugins
     {
         if ($plugin_name == '' || !is_string($plugin_name)) {
             return [
-                'status' => false,
-                'response' => 'Invalid plugin name.'
+                'status'   => false,
+                'response' => 'Invalid plugin name.',
             ];
         }
 
-        if (!self::search($vendor . '/' . $plugin_name, 'package_name')) {
+        if (!self::search($vendor.'/'.$plugin_name, 'package_name')) {
             return [
-                'status' => false,
-                'response' => 'Plugin <code>' . $vendor . '/' . $plugin_name . '</code> is not installed.'
+                'status'   => false,
+                'response' => 'Plugin <code>'.$vendor.'/'.$plugin_name.'</code> is not installed.',
             ];
         }
 
         chdir(ROOT_PATH);
-        exec('composer remove ' . $vendor . '/' . $plugin_name . ' 2>&1', $output);
+        exec('composer remove '.$vendor.'/'.$plugin_name.' 2>&1', $output);
         chdir(BASE_PATH);
 
         if (preg_match("/composer/i", $output[0])) {
             $plugins = json_decode(file_get_contents(self::$json_path));
 
             foreach ($plugins as $key => $item) {
-                if (($vendor . '/' . $plugin_name) == $item->package_name) {
+                if (($vendor.'/'.$plugin_name) == $item->package_name) {
                     unset($plugins[$key]);
                 }
             }
 
             file_put_contents(self::$json_path, json_encode($plugins));
             return [
-                'status' => true,
-                'response' => 'Successfully uninstalled the plugin <code>' . $vendor . '/' . $plugin_name . '</code>.'
+                'status'   => true,
+                'response' => 'Successfully uninstalled the plugin <code>'.$vendor.'/'.$plugin_name.'</code>.',
             ];
         }
 
         return [
-            'status' => false,
-            'response' => 'Plugin <code>' . $vendor . '/' . $plugin_name . '</code> failed to uninstall.'
+            'status'   => false,
+            'response' => 'Plugin <code>'.$vendor.'/'.$plugin_name.'</code> failed to uninstall.',
         ];
     }
 
@@ -152,8 +151,8 @@ class Plugins
         chdir(BASE_PATH);
 
         return [
-            'status' => true,
-            'response' => 'Successfully updated plugins.'
+            'status'   => true,
+            'response' => 'Successfully updated plugins.',
         ];
     }
 
@@ -162,8 +161,7 @@ class Plugins
      * @param string $plugin_name
      * @return array
      */
-    private
-    static function getPluginInfo(
+    private static function getPluginInfo(
         $vendor = '',
         $plugin_name = ''
     ) {
@@ -171,23 +169,23 @@ class Plugins
         curl_setopt_array(
             $cu,
             [
-                CURLOPT_URL => "https://packagist.org/p/$vendor/$plugin_name.json",
+                CURLOPT_URL            => "https://packagist.org/p/$vendor/$plugin_name.json",
                 CURLOPT_RETURNTRANSFER => true,
             ]
         );
 
         $response = json_decode(curl_exec($cu), true);
 
-        reset($response['packages'][$vendor . '/' . $plugin_name]['dev-master']['autoload']['psr-4']);
-        if (isset($response['packages'][$vendor . '/' . $plugin_name]['dev-master']['autoload']['psr-4'])) {
-            $first_key = key($response['packages'][$vendor . '/' . $plugin_name]['dev-master']['autoload']['psr-4']);
+        reset($response['packages'][$vendor.'/'.$plugin_name]['dev-master']['autoload']['psr-4']);
+        if (isset($response['packages'][$vendor.'/'.$plugin_name]['dev-master']['autoload']['psr-4'])) {
+            $first_key = key($response['packages'][$vendor.'/'.$plugin_name]['dev-master']['autoload']['psr-4']);
 
-            $loader = require ROOT_PATH . '/vendor/autoload.php';
+            $loader = require ROOT_PATH.'/vendor/autoload.php';
             if ($loader) {
-                $loader->addPsr4($first_key, ROOT_PATH . '/vendor' . DS . $vendor . DS . $plugin_name . DS . 'src');
+                $loader->addPsr4($first_key, ROOT_PATH.'/vendor'.DS.$vendor.DS.$plugin_name.DS.'src');
 
-                if (class_exists('\\' . $first_key . 'Plugin')) {
-                    return ('\\' . $first_key . 'Plugin')::info();
+                if (class_exists('\\'.$first_key.'Plugin')) {
+                    return ('\\'.$first_key.'Plugin')::info();
                 }
             }
         }

@@ -6,8 +6,7 @@ use pxgamer\Minimin\Plugins;
 use pxgamer\Minimin\Smarter;
 
 /**
- * Class Store
- * @package pxgamer\Minimin\Routes
+ * Class Store.
  */
 class Store
 {
@@ -32,14 +31,13 @@ class Store
             'store/index.tpl',
             [
                 'available' => $this->getPackages()->results,
-                'installed' => Plugins::get()
+                'installed' => Plugins::get(),
             ]
         );
     }
 
     public function search()
     {
-
     }
 
     /**
@@ -53,9 +51,9 @@ class Store
         $this->S->display(
             'store/install.tpl',
             [
-                'vendor' => $vendor,
+                'vendor'  => $vendor,
                 'package' => $package,
-                'status' => (object)$install_status
+                'status'  => (object)$install_status,
             ]
         );
     }
@@ -71,9 +69,9 @@ class Store
         $this->S->display(
             'store/install.tpl',
             [
-                'vendor' => $vendor,
+                'vendor'  => $vendor,
                 'package' => $package,
-                'status' => (object)$install_status
+                'status'  => (object)$install_status,
             ]
         );
     }
@@ -85,7 +83,7 @@ class Store
         $this->S->display(
             'store/install.tpl',
             [
-                'status' => (object)$install_status
+                'status' => (object)$install_status,
             ]
         );
     }
@@ -96,13 +94,13 @@ class Store
      */
     private function getPackages($search_query = null)
     {
-        $url = self::STORE_PACKAGE_URL . ($search_query ? '&q=' . urlencode($search_query) : '');
+        $url = self::STORE_PACKAGE_URL.($search_query ? '&q='.urlencode($search_query) : '');
         $cu = curl_init();
         curl_setopt_array(
             $cu,
             [
-                CURLOPT_URL => $url,
-                CURLOPT_RETURNTRANSFER => true
+                CURLOPT_URL            => $url,
+                CURLOPT_RETURNTRANSFER => true,
             ]
         );
         return json_decode(curl_exec($cu));

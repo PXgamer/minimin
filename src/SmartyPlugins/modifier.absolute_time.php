@@ -1,7 +1,7 @@
 <?php
 /**
- * @param $time
- * @param string $format
+ * @param string|int $time
+ * @param string     $format
  * @return false|string
  */
 function smarty_modifier_absolute_time($time, $format = '')

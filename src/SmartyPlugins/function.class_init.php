@@ -1,7 +1,7 @@
 <?php
 /**
- * @param array $params
- * @param $smarty
+ * @param array  $params
+ * @param Smarty $smarty
  */
 function smarty_function_class_init(array $params, &$smarty)
 {
